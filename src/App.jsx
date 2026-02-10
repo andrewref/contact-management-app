@@ -23,6 +23,12 @@ function App() {
     setIsFormOpen(true);
   }
 
+  function handleDelete(contact) {
+    if (window.confirm(`Are you sure you want to delete ${contact.name}?`)) {
+      setContactsList((prev) => prev.filter(c => c.id !== contact.id));
+    }
+  }
+
   function handleAddNew() {
     setEditingContact(null);
     setIsFormOpen(true);
@@ -45,7 +51,7 @@ function App() {
           </div>
         </div>
       )}  
-      <ContactList contacts={contactsList} onEdit={handleEdit}/>
+      <ContactList contacts={contactsList} onEdit={handleEdit} onDelete={handleDelete}/>
     </div>
   );
 }

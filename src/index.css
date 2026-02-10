@@ -10,6 +10,12 @@
   border-radius: 5px;
 }
 
+.contact-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .edit-button {
   padding: 8px 16px;
   background-color: #28a745;
@@ -17,7 +23,15 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 5px;
+}
+
+.delete-button {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .add-contact-button {

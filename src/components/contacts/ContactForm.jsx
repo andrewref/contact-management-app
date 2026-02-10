@@ -12,8 +12,6 @@ function ContactForm({ onSaveContact, contactToEdit }) {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-
-
   function handleSubmit(e) {
     e.preventDefault();
     const newErrors = {};
@@ -55,7 +53,8 @@ function ContactForm({ onSaveContact, contactToEdit }) {
         <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
         {errors.phone && <span className="error">{errors.phone}</span>}
       </div>
-    <div>
+      
+      <div>
         <label>Category</label>
         <select name="category" value={formData.category} onChange={handleChange}>
           <option value="">Select category</option>
@@ -64,7 +63,8 @@ function ContactForm({ onSaveContact, contactToEdit }) {
           <option value="Family">Family</option>
         </select>
         {errors.category && <span className="error">{errors.category}</span>}
-    </div>
+      </div>
+      
       <button type="submit">Add Contact</button>
     </form>
   );

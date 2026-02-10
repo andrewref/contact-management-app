@@ -8,10 +8,11 @@ function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingContact, setEditingContact] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
   
-  const filteredContacts = selectedCategory === "All" 
-    ? contactsList 
-    : contactsList.filter(contact => contact.category === selectedCategory);
+  const filteredContacts = contactsList
+    .filter(contact => selectedCategory === "All" || contact.category === selectedCategory)
+    .filter(contact => contact.name.toLowerCase().includes(searchTerm.toLowerCase()));
   
   function saveContact(contact) {
     if (editingContact) {
@@ -46,6 +47,13 @@ function App() {
         <button className="add-contact-button" onClick={handleAddNew}>
           Add Contact
         </button>
+        <input 
+          type="text" 
+          className="search-input" 
+          placeholder="Search by name..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <div className="filter-group">
           <label>Select Category</label>
           <select 

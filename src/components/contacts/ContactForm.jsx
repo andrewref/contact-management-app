@@ -1,17 +1,18 @@
 import { useState } from "react";
-
-function ContactForm({ onAddContact }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    category: "",
-  });
+function ContactForm({ onSaveContact, contactToEdit }) {
+  const [formData, setFormData] = useState(
+    contactToEdit || {
+      name: "",
+      email: "",
+      phone: "",
+      category: "",
+    });
   const [errors, setErrors] = useState({});
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,14 +29,14 @@ function ContactForm({ onAddContact }) {
       return;
     }
 
-    onAddContact({ id: Date.now(), ...formData });
+    onSaveContact(contactToEdit ? { ...formData, id: contactToEdit.id } : formData);
     setFormData({ name: "", email: "", phone: "", category: "" });
     setErrors({});
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add New Contact</h2>
+      <h2>{contactToEdit ? "Edit Contact" : "Add New Contact"}</h2>
       
       <div>
         <label>Name</label>
@@ -54,8 +55,7 @@ function ContactForm({ onAddContact }) {
         <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
         {errors.phone && <span className="error">{errors.phone}</span>}
       </div>
-      
-      <div>
+    <div>
         <label>Category</label>
         <select name="category" value={formData.category} onChange={handleChange}>
           <option value="">Select category</option>
@@ -64,8 +64,7 @@ function ContactForm({ onAddContact }) {
           <option value="Family">Family</option>
         </select>
         {errors.category && <span className="error">{errors.category}</span>}
-      </div>
-      
+    </div>
       <button type="submit">Add Contact</button>
     </form>
   );

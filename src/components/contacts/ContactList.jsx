@@ -1,10 +1,10 @@
 import ContactItem from "./ContactItem";
 
-function ContactList({ contacts }) {
+function ContactList({ contacts, onEdit }) {
 return (
     <div className="contact-list">
       {contacts.map((contact) => (
-        <ContactItem key={contact.id} contact={contact} />
+        <ContactItem key={contact.id} contact={contact} onEdit={onEdit}/>
       ))}
     </div>
   );

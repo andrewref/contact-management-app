@@ -6,15 +6,32 @@ import ContactForm from "./components/contacts/ContactForm";
 function App() {
   const [contactsList, setContactsList] = useState(contacts);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingContact, setEditingContact] = useState(null);
   
-  function addContact(newContact) {
-    setContactsList((prev) =>[...prev, newContact]);
+  function saveContact(contact) {
+    if (editingContact) {
+      setContactsList((prev) => prev.map(c => c.id === editingContact.id ? contact : c));
+    } else {
+      setContactsList((prev) => [...prev, { id: Date.now(), ...contact }]);
+    }
     setIsFormOpen(false);
+    setEditingContact(null);
   }
+
+  function handleEdit(contact) {
+    setEditingContact(contact);
+    setIsFormOpen(true);
+  }
+
+  function handleAddNew() {
+    setEditingContact(null);
+    setIsFormOpen(true);
+  }
+  
   return (
     <div className="App">
       <h1>Contact Manager</h1>
-      <button className="add-contact-button" onClick={() => setIsFormOpen(true)}>
+      <button className="add-contact-button" onClick={handleAddNew}>
         Add Contact
       </button>
       
@@ -24,11 +41,11 @@ function App() {
             <button className="close-button" onClick={() => setIsFormOpen(false)}>
               X
             </button>
-            <ContactForm onAddContact={addContact}/>
+            <ContactForm onSaveContact={saveContact} contactToEdit={editingContact}/>
           </div>
         </div>
       )}  
-      <ContactList contacts={contactsList}/>
+      <ContactList contacts={contactsList} onEdit={handleEdit}/>
     </div>
   );
 }

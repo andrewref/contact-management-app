@@ -7,6 +7,11 @@ function App() {
   const [contactsList, setContactsList] = useState(contacts);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingContact, setEditingContact] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  const filteredContacts = selectedCategory === "All" 
+    ? contactsList 
+    : contactsList.filter(contact => contact.category === selectedCategory);
   
   function saveContact(contact) {
     if (editingContact) {
@@ -37,9 +42,24 @@ function App() {
   return (
     <div className="App">
       <h1>Contact Manager</h1>
-      <button className="add-contact-button" onClick={handleAddNew}>
-        Add Contact
-      </button>
+      <div className="toolbar">
+        <button className="add-contact-button" onClick={handleAddNew}>
+          Add Contact
+        </button>
+        <div className="filter-group">
+          <label>Select Category</label>
+          <select 
+            className="category-filter" 
+            value={selectedCategory} 
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="All">All</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Family">Family</option>
+          </select>
+        </div>
+      </div>
       
       {isFormOpen && (
         <div className="form-overlay" onClick={() => setIsFormOpen(false)}>
@@ -51,7 +71,7 @@ function App() {
           </div>
         </div>
       )}  
-      <ContactList contacts={contactsList} onEdit={handleEdit} onDelete={handleDelete}/>
+      <ContactList contacts={filteredContacts} onEdit={handleEdit} onDelete={handleDelete}/>
     </div>
   );
 }

@@ -9,6 +9,37 @@
   padding: 1rem;
   border-radius: 5px;
 }
+.toolbar {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.filter-group label {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1;
+}
+
+.category-filter {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  height: 40px;
+}
 
 .contact-actions {
   display: flex;
@@ -41,7 +72,10 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .form-overlay {
